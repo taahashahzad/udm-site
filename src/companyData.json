@@ -1,0 +1,158 @@
+{
+  "company": {
+    "name": "US Digital Marketing (UDM)",
+    "founder": "Utkarsh Singh",
+    "established": 2021,
+    "headquarters": "Indore, Madhya Pradesh, India",
+    "address": "MVPC+8WC, Indrapuri Colony, DAVV Takshila Indore, MP 452001",
+    "tagline": "We don't run ads. We build growth systems.",
+    "description": "US Digital Marketing is a performance marketing agency based in Indore. Since 2021, we have been engineering digital dominance for local businesses. We don't just run ads — we build complete growth architectures that turn clicks into real customers and deliver measurable ROI.",
+    "contact": {
+      "phone": "+91 9630715686",
+      "whatsapp": "+91 9630715686",
+      "email": "businessgrowthservicess@gmail.com"
+    }
+  },
+
+  "results": {
+    "revenue_growth": "100x average revenue growth for clients",
+    "roi": "854% average return on investment",
+    "impressions": "100 million+ total impressions delivered",
+    "leads": "247,000+ verified leads generated",
+    "clients_served": "50+ business domains served"
+  },
+
+  "services": [
+    {
+      "name": "Performance Marketing",
+      "description": "Hyper-targeted Google and Meta ad campaigns designed to bring in high-intent buyers only. We eliminate wasted spend and maximize conversions.",
+      "includes": ["Google Search Ads", "Meta (Facebook/Instagram) Ads", "Retargeting Campaigns", "A/B Testing"]
+    },
+    {
+      "name": "Social Media Growth",
+      "description": "Cinematic Instagram Reels, viral content hooks, and consistent brand storytelling that builds audience and drives inbound leads.",
+      "includes": ["Instagram Reels", "Content Strategy", "Brand Storytelling", "Viral Hook Writing"]
+    },
+    {
+      "name": "Lead Generation",
+      "description": "End-to-end funnel building that captures, qualifies, and delivers ready-to-buy leads directly to your sales team.",
+      "includes": ["Landing Page Design", "Lead Capture Forms", "AI Lead Filtering", "CRM Integration"]
+    },
+    {
+      "name": "Local Market Domination",
+      "description": "Become the go-to brand in your city. We use geo-targeted ads, local SEO, and reputation systems to make your business the first choice.",
+      "includes": ["Local SEO", "Google My Business Optimization", "Geo-targeted Ads", "Review Management"]
+    },
+    {
+      "name": "Brand Identity & Content",
+      "description": "From logo to full brand kit, we create a visual identity that makes your business look premium and trustworthy.",
+      "includes": ["Logo Design", "Brand Kit", "Creatives for Ads", "Video Editing"]
+    },
+    {
+      "name": "Website & Funnel Design",
+      "description": "High-converting websites and sales funnels built specifically to turn visitors into paying customers.",
+      "includes": ["Landing Pages", "Sales Funnels", "Conversion Optimization", "Mobile-first Design"]
+    }
+  ],
+
+  "plans": [
+    {
+      "name": "STARTER",
+      "price": "₹25,000/month",
+      "best_for": "New businesses and startups",
+      "includes": ["Google Ads Setup", "Basic Meta Ads", "Monthly Report", "WhatsApp Support"]
+    },
+    {
+      "name": "SMART",
+      "price": "₹30,000/month",
+      "best_for": "Growing local businesses",
+      "includes": ["Google + Meta Ads", "Lead Generation Funnel", "Bi-weekly Reports", "Priority Support"]
+    },
+    {
+      "name": "ADVANCED",
+      "price": "₹40,000/month",
+      "best_for": "Businesses ready to scale",
+      "includes": ["Full Ad Management", "Social Media Content", "Landing Page", "Weekly Reports", "Dedicated Manager"],
+      "popular": true
+    },
+    {
+      "name": "PRO",
+      "price": "₹50,000/month",
+      "best_for": "Established brands wanting dominance",
+      "includes": ["Everything in Advanced", "Brand Identity Work", "Video Content", "Daily Reporting", "Strategy Calls"]
+    },
+    {
+      "name": "ELITE",
+      "price": "₹60,000/month",
+      "best_for": "Businesses targeting city-wide monopoly",
+      "includes": ["Everything in Pro", "Full Funnel Build", "CRM Setup", "Local SEO", "Exclusive Territory Rights", "24/7 Support"]
+    }
+  ],
+
+  "domains_served": [
+    "Gym", "Clinic", "Salon", "Mall", "Bakery", "Cafe", "Hotel", "Studio",
+    "Law Firm", "Pharma", "Real Estate", "Jewelry", "Logistics", "Gaming",
+    "Spa", "Interior Design", "Furniture", "Finance", "Education", "Travel"
+  ],
+
+  "process": [
+    { "step": 1, "title": "Discovery Call", "description": "We understand your business, target customers, and goals." },
+    { "step": 2, "title": "Strategy Build", "description": "Within 12 hours of onboarding, we build your custom growth strategy." },
+    { "step": 3, "title": "Campaign Launch", "description": "Ads and content go live. Results start showing in 7-14 days." },
+    { "step": 4, "title": "Optimize & Scale", "description": "We analyze data weekly and scale what works, cut what doesn't." }
+  ],
+
+  "faqs": [
+    {
+      "q": "How soon will I see results?",
+      "a": "Most clients see measurable results within 7 to 14 days of campaign launch. Full momentum typically builds over 30-60 days."
+    },
+    {
+      "q": "Do I need to provide an ad budget separately?",
+      "a": "Yes. Our service fee covers strategy, management, and execution. Your ad spend (Google/Meta budget) is separate and directly managed by you."
+    },
+    {
+      "q": "Which plan is best for me?",
+      "a": "It depends on your business size and goals. For new businesses, STARTER or SMART works well. For scaling, ADVANCED or PRO is recommended. ELITE is for full city domination."
+    },
+    {
+      "q": "Do you work with businesses outside Indore?",
+      "a": "Yes, we work with businesses across India and internationally. Our digital strategies work for any location."
+    },
+    {
+      "q": "What makes UDM different from other agencies?",
+      "a": "We don't just run ads — we build complete growth systems. We give regional exclusivity to elite clients, meaning we won't work with your direct competitor in the same area."
+    },
+    {
+      "q": "How do I pay?",
+      "a": "You can pay via UPI (utkarshsinghhh340@oksbi), bank transfer to Kotak Mahindra Bank (A/C: 6049669529, IFSC: KKBK0005336), PayPal (@UtkarshSingh521), or Payoneer (utkarshsinghhh340@gmail.com)."
+    },
+    {
+      "q": "Is there a contract?",
+      "a": "We work on a monthly basis. No long-term contracts required, though clients who stay 3+ months see the best results."
+    }
+  ],
+
+  "payment": {
+    "domestic": {
+      "account_holder": "Utkarsh Singh",
+      "bank": "Kotak Mahindra Bank",
+      "account_number": "6049669529",
+      "ifsc": "KKBK0005336",
+      "upi": "utkarshsinghhh340@oksbi"
+    },
+    "international": {
+      "paypal": "@UtkarshSingh521",
+      "payoneer": "utkarshsinghhh340@gmail.com"
+    }
+  },
+
+  "terms": {
+    "results_guarantee": "Campaign results in 7-14 days",
+    "onboarding": "12-hour project initiation post-onboarding",
+    "ad_budget": "Service fee is independent of ad budget",
+    "ip": "All creative IP belongs to Utkarsh Singh Promotions",
+    "exclusivity": "Regional exclusivity guaranteed for ELITE partners",
+    "privacy": "256-bit SSL encryption. Client data never shared."
+  }
+}
