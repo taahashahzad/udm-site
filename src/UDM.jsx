@@ -1,13 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import AIChat from "./AIChat";
-
-// ─────────────────────────────────────────────────────────────
-// HOW TO ADD YOUR LOGO:
-// 1. Copy your logo image (e.g. logo.png) into the src/ folder
-// 2. Uncomment the import line below and change the filename
-// 3. Replace <div className="udm-logo">UDM.</div> in the navbar
-//    with: <img src={logo} className="udm-logo-img" alt="Logo" />
-// ─────────────────────────────────────────────────────────────
 import logo from "./logo.png";
 
 const styles = `
@@ -24,6 +16,45 @@ const styles = `
   * { margin:0; padding:0; box-sizing:border-box; scroll-behavior:smooth; }
   body { background:#000; color:white; font-family:'Plus Jakarta Sans',sans-serif; overflow-x:hidden; }
 
+  /* ── PARTICLE CANVAS BACKGROUND ── */
+  #udm-bg-canvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* Ensure all sections sit above the canvas */
+  .udm-nav,
+  .udm-intro,
+  .udm-drawer,
+  .udm-hero,
+  .udm-stats,
+  .udm-about,
+  .udm-cats,
+  .udm-pricing,
+  .udm-legal,
+  .udm-footer,
+  .udm-modal,
+  .udm-pay-modal,
+  .udm-contacts,
+  .udm-ai,
+  #udm-cursor,
+  #udm-cursor-f {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Make sections transparent/semi-transparent so canvas shows through */
+  .udm-stats    { background: rgba(0,0,0,0.55) !important; }
+  .udm-about    { background: rgba(0,0,0,0.55) !important; }
+  .udm-cats     { background: rgba(1,1,1,0.55) !important; }
+  .udm-pricing  { background: rgba(0,0,0,0.55) !important; }
+  .udm-legal    { background: rgba(0,0,0,0.65) !important; }
+  .udm-footer   { background: rgba(0,0,0,0.7)  !important; }
+
   /* Custom cursor — desktop only */
   @media (pointer: fine) {
     * { cursor: none; }
@@ -37,7 +68,7 @@ const styles = `
   .udm-intro-txt { font-family:'Syncopate',sans-serif; font-size:clamp(1.2rem,5vw,3rem); font-weight:700; color:var(--blue); letter-spacing:clamp(4px,2vw,15px); transition:opacity 0.4s, transform 0.4s; }
 
   /* Navbar */
-  .udm-nav { position:fixed; top:0; width:100%; display:flex; justify-content:space-between; align-items:center; padding:16px 5%; z-index:1000; background:rgba(0,0,0,0.9); backdrop-filter:blur(25px); border-bottom:1px solid rgba(255,255,255,0.05); gap:16px; }
+  .udm-nav { position:fixed; top:0; width:100%; display:flex; justify-content:space-between; align-items:center; padding:16px 5%; z-index:1000; background:rgba(0,0,0,0.85); backdrop-filter:blur(25px); border-bottom:1px solid rgba(0,242,255,0.1); gap:16px; }
   .udm-logo { font-family:'Syncopate',sans-serif; font-weight:700; font-size:1.4rem; letter-spacing:5px; color:var(--blue); text-shadow:0 0 20px var(--blue); flex-shrink:0; }
   .udm-logo-img { height:44px; width:auto; object-fit:contain; flex-shrink:0; }
 
@@ -68,20 +99,10 @@ const styles = `
   .udm-burger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
 
   .udm-drawer-close {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: none;
-    border: 1px solid var(--red);
-    color: var(--red);
-    font-size: 1.2rem;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
+    position: absolute; top: 20px; right: 20px;
+    background: none; border: 1px solid var(--red); color: var(--red);
+    font-size: 1.2rem; width: 44px; height: 44px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; cursor: pointer;
     font-family: 'Syncopate', sans-serif;
   }
 
@@ -91,36 +112,37 @@ const styles = `
   .udm-drawer a { color:#fff; text-decoration:none; font-family:'Syncopate',sans-serif; font-size:clamp(1.2rem,6vw,1.8rem); font-weight:700; letter-spacing:6px; transition:0.3s; border-bottom:1px solid rgba(0,242,255,0.2); padding-bottom:14px; width:80%; text-align:center; cursor:pointer; }
   .udm-drawer a:hover { color:var(--green); }
 
-  /* Hero */
-  .udm-hero { height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; position:relative; text-align:center; overflow:hidden; background:radial-gradient(circle at 50% 50%,#030d1a 0%,#000 100%); padding:20px; }
-  .udm-banner-img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0.2; transition:1.5s; filter:grayscale(1); z-index:0; }
+  /* Hero — transparent so canvas shows through */
+  .udm-hero { height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; position:relative; text-align:center; overflow:hidden; background:transparent; padding:20px; }
+  .udm-banner-img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0.12; transition:1.5s; filter:grayscale(1); z-index:0; }
   .udm-hero-content { position:relative; z-index:1; }
   .udm-hero h1 { font-family:'Syncopate',sans-serif; font-size:clamp(2.2rem,9.5vw,9rem); line-height:0.9; text-transform:uppercase; letter-spacing:clamp(-2px,-1vw,-8px); }
   .udm-outline { color:transparent; -webkit-text-stroke:1px var(--blue); opacity:0.6; }
   .udm-caption { font-size:clamp(0.9rem,3vw,2rem); color:var(--red); font-weight:800; margin-top:28px; letter-spacing:clamp(2px,1vw,5px); min-height:44px; text-shadow:0 0 20px rgba(255,0,85,0.4); transition:opacity 0.4s; }
 
   /* Stats */
-  .udm-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:16px; padding:50px 5%; background:#000; }
-  .udm-stat { background:var(--glass); border:1px solid rgba(255,255,255,0.1); padding:36px 16px; border-radius:28px; text-align:center; transition:0.5s; cursor:pointer; backdrop-filter:blur(10px); }
+  .udm-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:16px; padding:50px 5%; }
+  .udm-stat { background:rgba(0,0,0,0.5); border:1px solid rgba(0,242,255,0.15); padding:36px 16px; border-radius:28px; text-align:center; transition:0.5s; cursor:pointer; backdrop-filter:blur(12px); }
   .udm-stat:hover { border-color:var(--green); transform:translateY(-10px); background:rgba(57,255,20,0.05); }
   .udm-stat h3 { font-family:'Syncopate',sans-serif; color:var(--green); font-size:clamp(1.3rem,3vw,2rem); margin-bottom:8px; }
   .udm-stat p { font-size:0.75rem; letter-spacing:2px; color:#888; text-transform:uppercase; }
 
   /* About */
-  .udm-about { padding:clamp(40px,8vw,100px) 5%; background:#000; }
-  .udm-about-glass { background:var(--glass); padding:clamp(28px,5vw,80px); border-radius:40px; border:1px solid rgba(255,255,255,0.05); cursor:pointer; transition:0.6s cubic-bezier(0.16,1,0.3,1); backdrop-filter:blur(40px); }
+  .udm-about { padding:clamp(40px,8vw,100px) 5%; }
+  .udm-about-glass { background:rgba(0,0,0,0.45); padding:clamp(28px,5vw,80px); border-radius:40px; border:1px solid rgba(0,242,255,0.1); cursor:pointer; transition:0.6s cubic-bezier(0.16,1,0.3,1); backdrop-filter:blur(40px); }
+  .udm-about-glass:hover { border-color:rgba(0,242,255,0.3); }
   .udm-about-glass h2 { font-family:'Syncopate',sans-serif; font-size:clamp(1.3rem,3vw,3rem); color:var(--blue); margin-bottom:20px; }
   .udm-about-sub { font-size:clamp(0.95rem,2vw,1.4rem); color:#888; margin-bottom:16px; }
   .udm-about-body { font-size:clamp(0.95rem,2vw,1.4rem); color:#bbb; line-height:1.8; min-height:80px; }
 
   /* Slider section */
-  .udm-cats { padding:clamp(50px,8vw,100px) 0; background:#010101; overflow:hidden; }
+  .udm-cats { padding:clamp(50px,8vw,100px) 0; overflow:hidden; }
   .udm-cats-title { text-align:center; font-family:'Syncopate',sans-serif; font-size:clamp(1.3rem,4vw,3rem); margin-bottom:40px; color:white; padding:0 5%; }
 
   /* Infinite slider */
   .udm-slider-wrap { overflow:hidden; }
   .udm-slider-track { display:flex; gap:28px; padding:0 5%; width:max-content; animation:slide 60s linear infinite; }
-  .udm-biz-card { width:clamp(200px,28vw,350px); height:clamp(280px,38vw,500px); background:var(--glass); border:1px solid #222; border-radius:28px; overflow:hidden; position:relative; transition:0.6s; display:flex; align-items:flex-end; padding:22px; cursor:pointer; flex-shrink:0; }
+  .udm-biz-card { width:clamp(200px,28vw,350px); height:clamp(280px,38vw,500px); background:rgba(0,0,0,0.4); border:1px solid #222; border-radius:28px; overflow:hidden; position:relative; transition:0.6s; display:flex; align-items:flex-end; padding:22px; cursor:pointer; flex-shrink:0; backdrop-filter:blur(8px); }
   .udm-biz-card:hover { transform:translateY(-20px); border-color:var(--blue); }
   .udm-biz-card img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; filter:grayscale(1) brightness(0.4); }
   .udm-biz-card h3 { font-family:'Syncopate',sans-serif; font-size:clamp(0.9rem,2.5vw,2rem); color:white; position:relative; z-index:1; }
@@ -128,7 +150,7 @@ const styles = `
 
   /* Search results grid */
   .udm-search-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); gap:14px; padding:0 5%; }
-  .udm-grid-card { background:var(--glass); border:1px solid #333; border-radius:18px; padding:28px 12px; text-align:center; cursor:pointer; transition:0.3s; font-family:'Syncopate',sans-serif; font-size:0.75rem; letter-spacing:1px; }
+  .udm-grid-card { background:rgba(0,0,0,0.45); border:1px solid #333; border-radius:18px; padding:28px 12px; text-align:center; cursor:pointer; transition:0.3s; font-family:'Syncopate',sans-serif; font-size:0.75rem; letter-spacing:1px; backdrop-filter:blur(8px); }
   .udm-grid-card:hover { border-color:var(--blue); background:rgba(0,242,255,0.06); color:var(--blue); transform:translateY(-5px); }
   .udm-grid-empty { text-align:center; color:#555; padding:40px; font-size:0.9rem; }
 
@@ -151,10 +173,10 @@ const styles = `
   .udm-modal-body { font-size:clamp(1rem,2.5vw,1.6rem); line-height:1.7; color:white; max-width:900px; }
 
   /* Pricing */
-  .udm-pricing { padding:clamp(60px,8vw,100px) 5%; text-align:center; background:#000; }
+  .udm-pricing { padding:clamp(60px,8vw,100px) 5%; text-align:center; }
   .udm-pricing-title { font-family:'Syncopate',sans-serif; font-size:clamp(1.3rem,4vw,3rem); color:white; margin-bottom:40px; }
   .udm-pay-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:14px; }
-  .udm-pay-card { background:var(--glass); border:1px solid #333; padding:32px 10px; border-radius:22px; transition:0.5s; cursor:pointer; text-align:center; }
+  .udm-pay-card { background:rgba(0,0,0,0.45); border:1px solid #333; padding:32px 10px; border-radius:22px; transition:0.5s; cursor:pointer; text-align:center; backdrop-filter:blur(10px); }
   .udm-pay-card:hover { background:var(--blue); color:black; transform:translateY(-10px); }
   .udm-pay-card h4 { font-family:'Syncopate',sans-serif; font-size:0.7rem; margin-bottom:10px; }
   .udm-pay-card h2 { font-family:'Syncopate',sans-serif; font-size:clamp(1.1rem,3vw,2rem); }
@@ -169,12 +191,12 @@ const styles = `
   .udm-pay-label { color:var(--green); font-family:'Syncopate',sans-serif; font-size:0.7rem; letter-spacing:3px; margin-bottom:10px; display:block; }
 
   /* Legal */
-  .udm-legal { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:36px; padding:clamp(40px,6vw,80px) 5%; background:#000; border-top:1px solid #111; }
+  .udm-legal { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:36px; padding:clamp(40px,6vw,80px) 5%; border-top:1px solid rgba(0,242,255,0.08); }
   .udm-legal-col h4 { font-family:'Syncopate',sans-serif; color:var(--blue); margin-bottom:18px; font-size:0.8rem; }
   .udm-legal-col p { color:#555; font-size:0.85rem; line-height:1.8; }
 
   /* Footer */
-  .udm-footer { padding:36px 20px; text-align:center; background:#000; border-top:1px solid #111; font-family:'Syncopate',sans-serif; font-size:0.65rem; color:#555; letter-spacing:2px; }
+  .udm-footer { padding:36px 20px; text-align:center; border-top:1px solid rgba(0,242,255,0.08); font-family:'Syncopate',sans-serif; font-size:0.65rem; color:#555; letter-spacing:2px; }
   .udm-footer-cap { color:var(--blue); margin-top:10px; display:block; }
 
   /* Mobile */
@@ -187,6 +209,189 @@ const styles = `
   }
 `;
 
+// ── Particle canvas background component ──────────────────────
+function ParticleCanvas() {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    let animId;
+    let mouse = { x: -9999, y: -9999 };
+
+    const resize = () => {
+      canvas.width  = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    resize();
+    window.addEventListener("resize", resize);
+    window.addEventListener("mousemove", (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
+
+    // Particle factory
+    const COUNT = Math.min(160, Math.floor((window.innerWidth * window.innerHeight) / 8000));
+    const COLORS = ["#00f2ff", "#00f2ff", "#00f2ff", "#39ff14", "#ff0055"];
+
+    const particles = Array.from({ length: COUNT }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 1.6 + 0.3,
+      vx: (Math.random() - 0.5) * 0.35,
+      vy: (Math.random() - 0.5) * 0.35,
+      color: COLORS[Math.floor(Math.random() * COLORS.length)],
+      alpha: Math.random() * 0.6 + 0.2,
+      pulse: Math.random() * Math.PI * 2,
+      pulseSpeed: 0.01 + Math.random() * 0.02,
+    }));
+
+    // Shooting star state
+    let shooters = [];
+    const spawnShooter = () => {
+      shooters.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * (canvas.height * 0.5),
+        len: 80 + Math.random() * 120,
+        speed: 8 + Math.random() * 8,
+        angle: Math.PI / 6 + (Math.random() - 0.5) * 0.4,
+        alpha: 1,
+        life: 1,
+      });
+    };
+    const shooterInterval = setInterval(spawnShooter, 2800);
+
+    const draw = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Radial ambient glow at center
+      const grd = ctx.createRadialGradient(
+        canvas.width / 2, canvas.height / 2, 0,
+        canvas.width / 2, canvas.height / 2, canvas.width * 0.7
+      );
+      grd.addColorStop(0,   "rgba(0,30,45,0.18)");
+      grd.addColorStop(0.5, "rgba(0,10,20,0.10)");
+      grd.addColorStop(1,   "rgba(0,0,0,0)");
+      ctx.fillStyle = grd;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Connection lines between nearby particles
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 110) {
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(0,242,255,${0.12 * (1 - dist / 110)})`;
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Mouse-glow attraction lines
+      for (const p of particles) {
+        const dx = p.x - mouse.x;
+        const dy = p.y - mouse.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 160) {
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.strokeStyle = `rgba(0,242,255,${0.18 * (1 - dist / 160)})`;
+          ctx.lineWidth = 0.6;
+          ctx.stroke();
+        }
+      }
+
+      // Particles
+      for (const p of particles) {
+        p.pulse += p.pulseSpeed;
+        const pAlpha = p.alpha * (0.7 + 0.3 * Math.sin(p.pulse));
+
+        // Glow aura
+        const aura = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 6);
+        aura.addColorStop(0,   p.color.replace(")", `,${pAlpha * 0.4})`).replace("rgb", "rgba").replace("#00f2ff", "rgba(0,242,255,").replace("#39ff14", "rgba(57,255,20,").replace("#ff0055", "rgba(255,0,85,") + (p.color.startsWith("#") ? `${pAlpha * 0.4})` : ""));
+        aura.addColorStop(1,   "rgba(0,0,0,0)");
+
+        // Simple dot with glow
+        ctx.save();
+        ctx.globalAlpha = pAlpha;
+        ctx.shadowColor  = p.color;
+        ctx.shadowBlur   = 8;
+        ctx.fillStyle    = p.color;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+
+        // Move
+        p.x += p.vx;
+        p.y += p.vy;
+
+        // Soft mouse repulsion
+        const mdx = p.x - mouse.x;
+        const mdy = p.y - mouse.y;
+        const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
+        if (mdist < 100) {
+          const force = (100 - mdist) / 100 * 0.5;
+          p.vx += (mdx / mdist) * force;
+          p.vy += (mdy / mdist) * force;
+        }
+
+        // Dampen
+        p.vx *= 0.99;
+        p.vy *= 0.99;
+
+        // Wrap
+        if (p.x < -10) p.x = canvas.width + 10;
+        if (p.x > canvas.width + 10) p.x = -10;
+        if (p.y < -10) p.y = canvas.height + 10;
+        if (p.y > canvas.height + 10) p.y = -10;
+      }
+
+      // Shooting stars
+      shooters = shooters.filter(s => s.life > 0);
+      for (const s of shooters) {
+        const tx = s.x + Math.cos(s.angle) * s.len;
+        const ty = s.y + Math.sin(s.angle) * s.len;
+        const grad = ctx.createLinearGradient(s.x, s.y, tx, ty);
+        grad.addColorStop(0, `rgba(0,242,255,0)`);
+        grad.addColorStop(0.5, `rgba(0,242,255,${s.life * 0.9})`);
+        grad.addColorStop(1, `rgba(255,255,255,${s.life})`);
+        ctx.beginPath();
+        ctx.moveTo(s.x, s.y);
+        ctx.lineTo(tx, ty);
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+        s.x += Math.cos(s.angle) * s.speed;
+        s.y += Math.sin(s.angle) * s.speed;
+        s.life -= 0.022;
+      }
+
+      animId = requestAnimationFrame(draw);
+    };
+
+    draw();
+
+    return () => {
+      cancelAnimationFrame(animId);
+      clearInterval(shooterInterval);
+      window.removeEventListener("resize", resize);
+    };
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      id="udm-bg-canvas"
+      style={{ position: "fixed", inset: 0, width: "100%", height: "100%", zIndex: 0, pointerEvents: "none" }}
+    />
+  );
+}
+
+// ── Constants ─────────────────────────────────────────────────
 const CATEGORIES = [
   "Gym","Clinic","Salon","Mall","Bakery","Cafe","Hotel","Studio",
   "Law Firm","Pharma","Real Estate","Jewelry","Logistics","Gaming",
@@ -199,16 +404,17 @@ const BANNERS = [
 ];
 const CAPS = ["Turn Clicks into Customers","From Local Shop to Market Leader","We Build Empires","ROI Engineered Funnels"];
 const FOOT_CAPS = ["ESTABLISHED IN 2020","PRIVACY PROTECTED","SECURE SYSTEMS","TRUSTED BY 50+ DOMAINS"];
-const ABOUT_TEXT = "SSince 2020, Utkarsh Singh Promotions has been engineering digital dominance. Based in Indore, we don't just run ads—we build complete growth architectures. We analyze your specific business category, identify high-intent customers using our proprietary algorithm, and convert them through cinematic brand storytelling.";
+const ABOUT_TEXT = "Since 2020, Utkarsh Singh Promotions has been engineering digital dominance. Based in Indore, we don't just run ads—we build complete growth architectures. We analyze your specific business category, identify high-intent customers using our proprietary algorithm, and convert them through cinematic brand storytelling.";
 const INTRO_SPEECH = ["WE DON'T RUN ADS.","WE BUILD GROWTH SYSTEMS.","REAL CUSTOMERS.","REAL ROI.","ESTD 2020.","SCALE NOW."];
 const STRATEGIES = {
-  "100x Growth": "WWe focus on aggressive market scaling and territory dominance. By optimizing every touchpoint of your sales funnel, we ensure your business grows 100 times its current capacity using predictive analytics and advanced lead capture.",
-  "854% ROI": "OOur strategies are built for pure profit. We eliminate wasted ad spend and target only high-intent buyers. This precision allows us to deliver an average return on investment of 854 percent for our elite partners consistently.",
-  "100M+ Reach": "VVisibility is currency. We leverage viral content hooks and cinematic storytelling to put your brand in front of millions. Our reach ensures you are the first name customers think of when they need services in your category.",
-  "247k+ Lead": "QQuantity meets quality. We have successfully generated over 247,000 verified leads for our clients. Every lead is pre-qualified through our proprietary AI filtering system before reaching your sales team for maximum conversion.",
+  "100x Growth": "We focus on aggressive market scaling and territory dominance. By optimizing every touchpoint of your sales funnel, we ensure your business grows 100 times its current capacity using predictive analytics and advanced lead capture.",
+  "854% ROI": "Our strategies are built for pure profit. We eliminate wasted ad spend and target only high-intent buyers. This precision allows us to deliver an average return on investment of 854 percent for our elite partners consistently.",
+  "100M+ Reach": "Visibility is currency. We leverage viral content hooks and cinematic storytelling to put your brand in front of millions. Our reach ensures you are the first name customers think of when they need services in your category.",
+  "247k+ Lead": "Quantity meets quality. We have successfully generated over 247,000 verified leads for our clients. Every lead is pre-qualified through our proprietary AI filtering system before reaching your sales team for maximum conversion.",
 };
-const getStrategy = (name) => STRATEGIES[name] || `OOur specialized ${name} growth engine is designed to dominate the local market. For a ${name} business, we deploy hyper-targeted Google search ads and cinematic Instagram Reels that act as a customer magnet, pulling in ready-to-buy customers 24 hours a day.`;
+const getStrategy = (name) => STRATEGIES[name] || `Our specialized ${name} growth engine is designed to dominate the local market. For a ${name} business, we deploy hyper-targeted Google search ads and cinematic Instagram Reels that act as a customer magnet, pulling in ready-to-buy customers 24 hours a day.`;
 
+// ── Main Component ────────────────────────────────────────────
 export default function UDM() {
   const [introIdx, setIntroIdx] = useState(0);
   const [introVisible, setIntroVisible] = useState(true);
@@ -229,16 +435,12 @@ export default function UDM() {
   const [cursorF, setCursorF] = useState({ x: -100, y: -100 });
   const searchRef = useRef(null);
 
-
-
-  // Cursor
   useEffect(() => {
     const fn = (e) => { setCursor({ x: e.clientX, y: e.clientY }); setCursorF({ x: e.clientX - 15, y: e.clientY - 15 }); };
     window.addEventListener("mousemove", fn);
     return () => window.removeEventListener("mousemove", fn);
   }, []);
 
-  // Intro
   useEffect(() => {
     let t;
     if (introIdx < INTRO_SPEECH.length) {
@@ -250,18 +452,15 @@ export default function UDM() {
     return () => clearTimeout(t);
   }, [introIdx]);
 
-  // Cycles
   useEffect(() => { const iv = setInterval(() => { setBannerIdx(i => (i+1)%BANNERS.length); setCapIdx(i => (i+1)%CAPS.length); }, 2500); return () => clearInterval(iv); }, []);
   useEffect(() => { const iv = setInterval(() => setFootCapIdx(i => (i+1)%FOOT_CAPS.length), 3000); return () => clearInterval(iv); }, []);
 
-  // Outside click closes search
   useEffect(() => {
     const fn = (e) => { if (searchRef.current && !searchRef.current.contains(e.target)) setSearchFocused(false); };
     document.addEventListener("mousedown", fn);
     return () => document.removeEventListener("mousedown", fn);
   }, []);
 
-  // Mobile scroll lock
   useEffect(() => { document.body.style.overflow = mobileOpen ? "hidden" : ""; return () => { document.body.style.overflow = ""; }; }, [mobileOpen]);
 
   const runTypewriter = () => {
@@ -284,13 +483,6 @@ export default function UDM() {
     }, 20);
   };
 
-  const startVoice = () => {
-    if (!window.speechSynthesis) return;
-    const msg = new SpeechSynthesisUtterance("Welcome to US Digital Marketing. Hum sirf ads nahi chalate, hum aapke business ko brand banate hain. We build complete growth architectures since 2021. Let's scale your empire.");
-    msg.rate = 0.9; msg.pitch = 1;
-    window.speechSynthesis.speak(msg);
-  };
-
   const trimmed = searchTerm.trim().toLowerCase();
   const filtered = trimmed === "" ? CATEGORIES : CATEGORIES.filter(c => c.toLowerCase().includes(trimmed));
   const isSearching = trimmed !== "";
@@ -311,10 +503,12 @@ export default function UDM() {
     <>
       <style>{styles}</style>
 
+      {/* ── PARTICLE BACKGROUND ── */}
+      <ParticleCanvas />
+
       <div id="udm-cursor" style={{ left: cursor.x, top: cursor.y, position: "fixed" }} />
       <div id="udm-cursor-f" style={{ left: cursorF.x, top: cursorF.y, position: "fixed" }} />
 
-      {/* Intro */}
       {introVisible && (
         <div className={`udm-intro${introExiting ? " exit" : ""}`}>
           <div className="udm-intro-txt" style={{ opacity: introOpacity, transform: introOpacity === 1 ? "translateY(0)" : "translateY(30px)" }}>
@@ -323,7 +517,6 @@ export default function UDM() {
         </div>
       )}
 
-      {/* Mobile drawer */}
       <div className={`udm-drawer${mobileOpen ? " open" : ""}`}>
         <button className="udm-drawer-close" onClick={() => setMobileOpen(false)}>✕</button>
         {[["#about","ABOUT"],["#categories","DOMAINS"],["#pricing","PLANS"],["#support","HELP"]].map(([h, l]) => (
@@ -331,18 +524,8 @@ export default function UDM() {
         ))}
       </div>
 
-      {/* Navbar */}
       <nav className="udm-nav">
-        {/*
-          ── LOGO SWAP INSTRUCTIONS ──────────────────────────────────
-          Step 1: Put your logo file (e.g. logo.png) inside the src/ folder.
-          Step 2: At the top of this file, uncomment: import logo from "./logo.png";
-          Step 3: Replace the <div className="udm-logo"> block below with:
-                  <img src={logo} className="udm-logo-img" alt="UDM Logo" />
-          ────────────────────────────────────────────────────────────
-        */}
         <img src={logo} className="udm-logo-img" alt="UDM Logo" />
-
         <div className="udm-search-wrap" ref={searchRef}>
           <div className="udm-search-box">
             <span style={{ color: "var(--blue)", fontSize: "0.8rem", flexShrink: 0 }}>🔍</span>
@@ -366,20 +549,17 @@ export default function UDM() {
             </div>
           )}
         </div>
-
         <div className="udm-nav-links">
           <a href="#about">ABOUT</a>
           <a href="#categories">DOMAINS</a>
           <a href="#pricing">PLANS</a>
           <a href="#support">HELP</a>
         </div>
-
         <button className={`udm-burger${mobileOpen ? " open" : ""}`} onClick={() => setMobileOpen(o => !o)} aria-label="Menu">
           <span /><span /><span />
         </button>
       </nav>
 
-      {/* Hero */}
       <section className="udm-hero" id="home">
         <img src={BANNERS[bannerIdx]} className="udm-banner-img" alt="" />
         <div className="udm-hero-content">
@@ -388,7 +568,6 @@ export default function UDM() {
         </div>
       </section>
 
-      {/* Stats */}
       <section className="udm-stats">
         {[
           { val: "100×", label: "Revenue Growth", key: "100x Growth" },
@@ -402,7 +581,6 @@ export default function UDM() {
         ))}
       </section>
 
-      {/* About */}
       <section className="udm-about" id="about">
         <div className="udm-about-glass" onClick={runTypewriter}>
           <h2>OUR CORE LEGACY ▼</h2>
@@ -411,7 +589,6 @@ export default function UDM() {
         </div>
       </section>
 
-      {/* Categories */}
       <section className="udm-cats" id="categories">
         <h2 className="udm-cats-title">CHOOSE YOUR DOMAIN</h2>
         {isSearching ? (
@@ -438,16 +615,13 @@ export default function UDM() {
         )}
       </section>
 
-      {/* AI Assistant */}
       <AIChat />
 
-      {/* Contacts */}
       <div className="udm-contacts">
         <a href="mailto:businessgrowthservicess@gmail.com" className="udm-cbtn udm-mail" title="Email">✉</a>
         <a href="https://wa.me/919630715686" target="_blank" rel="noreferrer" className="udm-cbtn udm-wp" title="WhatsApp">💬</a>
       </div>
 
-      {/* Strategy Modal */}
       {strategyModal && (
         <div className="udm-modal">
           <button className="udm-modal-close" onClick={() => { setStrategyModal(null); setStrategyText(""); }}>✕ CLOSE</button>
@@ -458,7 +632,6 @@ export default function UDM() {
         </div>
       )}
 
-      {/* Pricing */}
       <section className="udm-pricing" id="pricing">
         <h2 className="udm-pricing-title">ACTIVATE ENGINE</h2>
         <div className="udm-pay-grid">
@@ -476,7 +649,6 @@ export default function UDM() {
         </div>
       </section>
 
-      {/* Payment Modal */}
       {payModal && (
         <div className="udm-pay-modal">
           <button className="udm-modal-close" style={{ position: "fixed", top: 20, right: 20 }} onClick={() => setPayModal(null)}>✕ CLOSE</button>
@@ -501,7 +673,6 @@ export default function UDM() {
         </div>
       )}
 
-      {/* Legal */}
       <section className="udm-legal" id="support">
         <div className="udm-legal-col">
           <h4>HELP & SUPPORT</h4>
@@ -517,7 +688,6 @@ export default function UDM() {
         </div>
       </section>
 
-      {/* Footer */}
       <footer className="udm-footer">
         <p>© 2020-2026 US DIGITAL MARKETING. ESTD 2020. INDORE HQ.</p>
         <span className="udm-footer-cap">{FOOT_CAPS[footCapIdx]}</span>
