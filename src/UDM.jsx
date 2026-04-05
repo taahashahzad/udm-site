@@ -487,7 +487,7 @@ export default function UDM() {
             <p><b>Bank:</b> Kotak Mahindra Bank</p>
             <p><b>Account No:</b> 6049669529</p>
             <p><b>IFSC Code:</b> KKBK0005336</p>
-            <p><b>UPI ID:</b> utkarshsinghhh340@oksbi</p>
+            <p><b>UPI ID:</b> utkarshsinghhh340@okaxis</p>
             <div className="udm-pay-divider" />
             <span className="udm-pay-label">🌍 INTERNATIONAL PAYMENT</span>
             <p><b>PayPal:</b> @UtkarshSingh521</p>
