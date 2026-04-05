@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import AIChat from "./AIChat";
+import AIChat from "./AiChat";
 
 // ─────────────────────────────────────────────────────────────
 // HOW TO ADD YOUR LOGO:
