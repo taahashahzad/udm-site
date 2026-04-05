@@ -22,38 +22,88 @@
     "clients_served": "50+ business domains served"
   },
 
-  "services": [
-    {
-      "name": "Performance Marketing",
-      "description": "Hyper-targeted Google and Meta ad campaigns designed to bring in high-intent buyers only. We eliminate wasted spend and maximize conversions.",
-      "includes": ["Google Search Ads", "Meta (Facebook/Instagram) Ads", "Retargeting Campaigns", "A/B Testing"]
-    },
-    {
-      "name": "Social Media Growth",
-      "description": "Cinematic Instagram Reels, viral content hooks, and consistent brand storytelling that builds audience and drives inbound leads.",
-      "includes": ["Instagram Reels", "Content Strategy", "Brand Storytelling", "Viral Hook Writing"]
-    },
-    {
-      "name": "Lead Generation",
-      "description": "End-to-end funnel building that captures, qualifies, and delivers ready-to-buy leads directly to your sales team.",
-      "includes": ["Landing Page Design", "Lead Capture Forms", "AI Lead Filtering", "CRM Integration"]
-    },
-    {
-      "name": "Local Market Domination",
-      "description": "Become the go-to brand in your city. We use geo-targeted ads, local SEO, and reputation systems to make your business the first choice.",
-      "includes": ["Local SEO", "Google My Business Optimization", "Geo-targeted Ads", "Review Management"]
-    },
-    {
-      "name": "Brand Identity & Content",
-      "description": "From logo to full brand kit, we create a visual identity that makes your business look premium and trustworthy.",
-      "includes": ["Logo Design", "Brand Kit", "Creatives for Ads", "Video Editing"]
-    },
-    {
-      "name": "Website & Funnel Design",
-      "description": "High-converting websites and sales funnels built specifically to turn visitors into paying customers.",
-      "includes": ["Landing Pages", "Sales Funnels", "Conversion Optimization", "Mobile-first Design"]
-    }
-  ],
+  "categories": [
+  {
+    "name": "Gym",
+    "description": "We help gyms attract serious fitness seekers through before/after content, Google Maps dominance, and membership funnel ads that fill your floor fast."
+  },
+  {
+    "name": "Clinic",
+    "description": "Patient acquisition for clinics via Google Search ads, appointment booking funnels, and trust-building content that converts health-conscious leads."
+  },
+  {
+    "name": "Salon",
+    "description": "Viral Instagram Reels, before/after transformations, and local ads that keep your chairs booked weeks in advance."
+  },
+  {
+    "name": "Mall",
+    "description": "Footfall campaigns, event promotions, and geo-targeted ads that drive real visitors into your mall consistently."
+  },
+  {
+    "name": "Bakery",
+    "description": "Mouth-watering content, festive campaign strategy, and local delivery ads that turn followers into daily customers."
+  },
+  {
+    "name": "Cafe",
+    "description": "Aesthetic content creation, Google My Business optimization, and influencer collaboration strategies that make your cafe the go-to spot."
+  },
+  {
+    "name": "Hotel",
+    "description": "Booking-focused campaigns, Google Hotel Ads, and reputation management that maximize your occupancy rate year-round."
+  },
+  {
+    "name": "Studio",
+    "description": "Portfolio showcasing, Instagram growth, and lead generation for photography, music, and creative studios seeking premium clients."
+  },
+  {
+    "name": "Law Firm",
+    "description": "High-intent Google Search ads targeting people actively seeking legal help, paired with trust-building content that converts."
+  },
+  {
+    "name": "Pharma",
+    "description": "Compliant digital marketing for pharma businesses — brand awareness, B2B lead generation, and distributor outreach campaigns."
+  },
+  {
+    "name": "Real Estate",
+    "description": "Property lead generation through Meta and Google ads, virtual tour promotions, and high-converting landing pages for builders and agents."
+  },
+  {
+    "name": "Jewelry",
+    "description": "Luxury-feel content, festive season campaigns, and targeted ads that attract buyers ready to spend on gold, diamonds, and custom pieces."
+  },
+  {
+    "name": "Logistics",
+    "description": "B2B lead generation, Google Search dominance for logistics keywords, and LinkedIn outreach campaigns for freight and delivery businesses."
+  },
+  {
+    "name": "Gaming",
+    "description": "Community building, YouTube/Twitch promotion, and product launch campaigns for gaming brands, cafes, and accessory sellers."
+  },
+  {
+    "name": "Spa",
+    "description": "Relaxation-themed content, offer campaigns, and Google Maps ranking that brings in a steady stream of self-care customers."
+  },
+  {
+    "name": "Interior",
+    "description": "Portfolio-driven Instagram ads, Pinterest marketing, and lead gen funnels for interior designers targeting premium home and office clients."
+  },
+  {
+    "name": "Furniture",
+    "description": "Showroom traffic campaigns, catalog ads, and festive season promotions that drive both walk-ins and online orders."
+  },
+  {
+    "name": "Finance",
+    "description": "Compliant lead generation for finance advisors, loan agencies, and investment firms targeting high-intent audiences on Google and Meta."
+  },
+  {
+    "name": "Education",
+    "description": "Student enrollment campaigns, course promotion funnels, and YouTube ads for coaching centres, schools, and ed-tech platforms."
+  },
+  {
+    "name": "Travel",
+    "description": "Package promotion ads, seasonal campaign strategy, and Instagram content that inspires bookings for travel agencies and tour operators."
+  }
+],
 
   "plans": [
     {

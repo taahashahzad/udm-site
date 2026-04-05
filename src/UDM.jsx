@@ -61,11 +61,29 @@ const styles = `
   .udm-nav-links a:hover { color:var(--green); }
 
   /* Hamburger */
-  .udm-burger { display:none; flex-direction:column; gap:5px; background:none; border:none; padding:6px; cursor:pointer; flex-shrink:0; z-index:1100; }
+  .udm-burger { display:none; flex-direction:column; gap:5px; background:none; border:none; padding:6px; cursor:pointer; flex-shrink:0; z-index:1100; position:relative; }
   .udm-burger span { display:block; width:26px; height:2px; background:var(--blue); border-radius:2px; transition:0.3s; }
   .udm-burger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
   .udm-burger.open span:nth-child(2) { opacity:0; }
   .udm-burger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+
+  .udm-drawer-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: 1px solid var(--red);
+    color: var(--red);
+    font-size: 1.2rem;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-family: 'Syncopate', sans-serif;
+  }
 
   /* Mobile drawer */
   .udm-drawer { position:fixed; inset:0; background:rgba(0,0,0,0.97); z-index:1050; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:36px; transform:translateX(100%); transition:transform 0.4s cubic-bezier(0.76,0,0.24,1); }
@@ -167,9 +185,6 @@ const styles = `
     .udm-ai-label { display:none; }
     .udm-ai { padding:14px; border-radius:50%; }
   }
-  @media (max-width: 480px) {
-    .udm-search-wrap { display:none; }
-  }
 `;
 
 const CATEGORIES = [
@@ -185,14 +200,14 @@ const BANNERS = [
 const CAPS = ["Turn Clicks into Customers","From Local Shop to Market Leader","We Build Empires","ROI Engineered Funnels"];
 const FOOT_CAPS = ["ESTABLISHED IN 2020","PRIVACY PROTECTED","SECURE SYSTEMS","TRUSTED BY 50+ DOMAINS"];
 const ABOUT_TEXT = "SSince 2020, Utkarsh Singh Promotions has been engineering digital dominance. Based in Indore, we don't just run ads—we build complete growth architectures. We analyze your specific business category, identify high-intent customers using our proprietary algorithm, and convert them through cinematic brand storytelling.";
-const INTRO_SPEECH = ["WE DON'T RUN ADS.","WE BUILD GROWTH SYSTEMS.","REAL CUSTOMERS.","REAL ROI.","ESTD 2021.","SCALE NOW."];
+const INTRO_SPEECH = ["WE DON'T RUN ADS.","WE BUILD GROWTH SYSTEMS.","REAL CUSTOMERS.","REAL ROI.","ESTD 2020.","SCALE NOW."];
 const STRATEGIES = {
-  "100x Growth": "We focus on aggressive market scaling and territory dominance. By optimizing every touchpoint of your sales funnel, we ensure your business grows 100 times its current capacity using predictive analytics and advanced lead capture.",
-  "854% ROI": "Our strategies are built for pure profit. We eliminate wasted ad spend and target only high-intent buyers. This precision allows us to deliver an average return on investment of 854 percent for our elite partners consistently.",
-  "100M+ Reach": "Visibility is currency. We leverage viral content hooks and cinematic storytelling to put your brand in front of millions. Our reach ensures you are the first name customers think of when they need services in your category.",
-  "247k+ Lead": "Quantity meets quality. We have successfully generated over 247,000 verified leads for our clients. Every lead is pre-qualified through our proprietary AI filtering system before reaching your sales team for maximum conversion.",
+  "100x Growth": "WWe focus on aggressive market scaling and territory dominance. By optimizing every touchpoint of your sales funnel, we ensure your business grows 100 times its current capacity using predictive analytics and advanced lead capture.",
+  "854% ROI": "OOur strategies are built for pure profit. We eliminate wasted ad spend and target only high-intent buyers. This precision allows us to deliver an average return on investment of 854 percent for our elite partners consistently.",
+  "100M+ Reach": "VVisibility is currency. We leverage viral content hooks and cinematic storytelling to put your brand in front of millions. Our reach ensures you are the first name customers think of when they need services in your category.",
+  "247k+ Lead": "QQuantity meets quality. We have successfully generated over 247,000 verified leads for our clients. Every lead is pre-qualified through our proprietary AI filtering system before reaching your sales team for maximum conversion.",
 };
-const getStrategy = (name) => STRATEGIES[name] || `Our specialized ${name} growth engine is designed to dominate the local market. For a ${name} business, we deploy hyper-targeted Google search ads and cinematic Instagram Reels that act as a customer magnet, pulling in ready-to-buy customers 24 hours a day.`;
+const getStrategy = (name) => STRATEGIES[name] || `OOur specialized ${name} growth engine is designed to dominate the local market. For a ${name} business, we deploy hyper-targeted Google search ads and cinematic Instagram Reels that act as a customer magnet, pulling in ready-to-buy customers 24 hours a day.`;
 
 export default function UDM() {
   const [introIdx, setIntroIdx] = useState(0);
@@ -213,6 +228,8 @@ export default function UDM() {
   const [cursor, setCursor] = useState({ x: -100, y: -100 });
   const [cursorF, setCursorF] = useState({ x: -100, y: -100 });
   const searchRef = useRef(null);
+
+
 
   // Cursor
   useEffect(() => {
@@ -308,6 +325,7 @@ export default function UDM() {
 
       {/* Mobile drawer */}
       <div className={`udm-drawer${mobileOpen ? " open" : ""}`}>
+        <button className="udm-drawer-close" onClick={() => setMobileOpen(false)}>✕</button>
         {[["#about","ABOUT"],["#categories","DOMAINS"],["#pricing","PLANS"],["#support","HELP"]].map(([h, l]) => (
           <a key={h} onClick={() => handleMobileLink(h)}>{l}</a>
         ))}
@@ -388,7 +406,7 @@ export default function UDM() {
       <section className="udm-about" id="about">
         <div className="udm-about-glass" onClick={runTypewriter}>
           <h2>OUR CORE LEGACY ▼</h2>
-          <p className="udm-about-sub">We have been engineering local monopolies in Indore since 2021.</p>
+          <p className="udm-about-sub">We have been engineering local monopolies in Indore since 2020.</p>
           <div className="udm-about-body">{typeText}</div>
         </div>
       </section>
