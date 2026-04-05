@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import companyData from "./companyData.json";
-
+import agentPhoto from "./agent.jpg";
 // ─────────────────────────────────────────────────────────
 // SETUP INSTRUCTIONS:
 // 1. Go to https://openrouter.ai and create a free account
@@ -317,7 +317,9 @@ export default function AIChat() {
       <div className={`ai-chat-window${open ? " open" : ""}`}>
         {/* Header */}
         <div className="ai-chat-header">
-          <div className="ai-chat-avatar">🤖</div>
+          <div className="ai-chat-avatar" style={{ padding: 0, overflow: "hidden" }}>
+            <img src={agentPhoto} alt="Agent" style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%" }} />
+          </div>
           <div className="ai-chat-header-info">
             <div className="ai-chat-name">UDM AI AGENT</div>
             <div className="ai-chat-status">
@@ -387,7 +389,8 @@ export default function AIChat() {
 
       {/* Trigger button */}
       <button className="ai-chat-trigger" onClick={() => setOpen(o => !o)}>
-        🤖 <span className="ai-chat-trigger-label">AI ASSISTANT</span>
+        <img src={agentPhoto} style={{ width: 22, height: 22, borderRadius: "50%", objectFit: "cover" }} alt="" />
+        <span className="ai-chat-trigger-label">AI ASSISTANT</span>
       </button>
     </>
   );
