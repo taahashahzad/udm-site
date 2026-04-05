@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import companyData from "./companyData.json";
-import agentPhoto from "./agent.jpg";
+import agentPhoto from "./logo.png";
 // ─────────────────────────────────────────────────────────
 // SETUP INSTRUCTIONS:
 // 1. Go to https://openrouter.ai and create a free account
